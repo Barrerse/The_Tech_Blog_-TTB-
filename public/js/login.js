@@ -1,36 +1,25 @@
-const router = require('express').Router();
-const { User } = require('../../models');
+async function loginFormHandler(event) {
+  event.preventDefault();
 
-// POST /api/users/login
-router.post('/login', async (req, res) => {
-  try {
-    // Find the user who matches the provided email address
-    const userData = await User.findOne({ where: { email: req.body.email } });
+  const email = document.querySelector('#email-login').value.trim();
+  const password = document.querySelector('#password-login').value.trim();
 
-    if (!userData) {
-      res.status(400).json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    // Check the provided password against the hashed password in the database
-    const validPassword = await userData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    // Save the user's session so they can stay logged in
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-      res.json({ user: userData, message: 'You are now logged in!' });
+  if (email && password) {
+    const response = await fetch('/api/users/login', {
+      method: 'post',
+      body: JSON.stringify({
+        email,
+        password
+      }),
+      headers: { 'Content-Type': 'application/json' }
     });
 
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    if (response.ok) {
+      document.location.replace('/dashboard');
+    } else {
+      alert(response.statusText);
+    }
   }
-});
+}
 
-module.exports = router;
+document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
