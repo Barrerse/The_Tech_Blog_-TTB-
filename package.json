@@ -1,7 +1,7 @@
 {
   "name": "crowd-funding",
   "version": "1.0.0",
-  "description": "",
+  "description": "Model-View-Controller (MVC) Challenge: Tech Blog",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,5 +25,13 @@
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "prettier": "^2.1.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Barrerse/The_Tech_Blog_-TTB-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Barrerse/The_Tech_Blog_-TTB-/issues"
+  },
+  "homepage": "https://github.com/Barrerse/The_Tech_Blog_-TTB-#readme"
 }
